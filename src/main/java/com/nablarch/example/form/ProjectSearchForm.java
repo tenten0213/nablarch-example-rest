@@ -13,29 +13,9 @@ public class ProjectSearchForm implements Serializable {
     /** シリアルバージョンUID */
     private static final long serialVersionUID = 1L;
 
-    /** 顧客ID */
-    @Domain("id")
-    private String clientId;
-
     /** プロジェクト名 */
     @Domain("projectName")
     private String projectName;
-
-    /**
-     * 顧客IDを取得する。
-     * @return 顧客ID
-     */
-    public String getClientId() {
-        return clientId;
-    }
-
-    /**
-     * 顧客IDを設定する。
-     * @param clientId 顧客ID
-     */
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
 
     /**
      * プロジェクト名を取得する。
