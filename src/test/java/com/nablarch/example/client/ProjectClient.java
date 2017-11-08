@@ -1,6 +1,6 @@
 package com.nablarch.example.client;
 
-import javax.ws.rs.client.ClientBuilder;
+import java.util.concurrent.TimeUnit;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -10,6 +10,7 @@ import com.nablarch.example.entity.Project;
 import com.nablarch.example.form.ProjectForm;
 import com.nablarch.example.form.ProjectUpdateForm;
 import com.nablarch.example.util.MultivaluedMapUtil;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 public class ProjectClient {
 
@@ -76,7 +77,10 @@ public class ProjectClient {
      */
     //private static MultivaluedMap<String, String> getProject() {
     private static Project getProject() {
-        return ClientBuilder.newClient()
+        return new ResteasyClientBuilder()
+                .establishConnectionTimeout(15, TimeUnit.SECONDS)
+                .socketTimeout(10, TimeUnit.SECONDS)
+                .build()
                 .register(new CustomFormUrlEncodedProvider())
                 .target(targetUrl)
                 .request(MediaType.APPLICATION_FORM_URLENCODED)
@@ -94,8 +98,10 @@ public class ProjectClient {
      */
     private static Project getProject(String key, Object value) {
 
-        return ClientBuilder.newClient()
-                .register(new CustomFormUrlEncodedProvider())
+        return new ResteasyClientBuilder()
+                .establishConnectionTimeout(15, TimeUnit.SECONDS)
+                .socketTimeout(10, TimeUnit.SECONDS)
+                .build()
                 .target(targetUrl)
                 .queryParam(key, value)
                 .request(MediaType.APPLICATION_FORM_URLENCODED)
@@ -110,7 +116,10 @@ public class ProjectClient {
      * @return ステータスコード
      */
     private static Integer postProject(ProjectForm project) {
-        return ClientBuilder.newClient()
+        return new ResteasyClientBuilder()
+                .establishConnectionTimeout(15, TimeUnit.SECONDS)
+                .socketTimeout(10, TimeUnit.SECONDS)
+                .build()
                 .target(targetUrl)
                 .request(MediaType.APPLICATION_FORM_URLENCODED)
                 .post(Entity.form(MultivaluedMapUtil.convertMultiValuedMap(project))).getStatus();
@@ -123,11 +132,12 @@ public class ProjectClient {
      * @return ステータスコード
      */
     private static Integer putProject(ProjectUpdateForm project) {
-        return ClientBuilder.newClient()
+        return new ResteasyClientBuilder()
+                .establishConnectionTimeout(15, TimeUnit.SECONDS)
+                .socketTimeout(10, TimeUnit.SECONDS)
+                .build()
                 .target(targetUrl)
-                //.request(MediaType.APPLICATION_FORM_URLENCODED)
                 .request(MediaType.APPLICATION_JSON)
-                //.put(Entity.form(MultivaluedMapUtil.convertMultiValuedMap(project))).getStatus();
                 .put(Entity.json(project)).getStatus();
     }
 
