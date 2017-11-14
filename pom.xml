@@ -282,15 +282,6 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jackson2-provider</artifactId>
-      <version>3.1.4.Final</version>
-      <scope>test</scope>
-    </dependency>
-
-
-
     <!--
     
         <dependency>

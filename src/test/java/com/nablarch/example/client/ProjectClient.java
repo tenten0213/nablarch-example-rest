@@ -102,6 +102,7 @@ public class ProjectClient {
                 .establishConnectionTimeout(15, TimeUnit.SECONDS)
                 .socketTimeout(10, TimeUnit.SECONDS)
                 .build()
+                .register(new CustomFormUrlEncodedProvider())
                 .target(targetUrl)
                 .queryParam(key, value)
                 .request(MediaType.APPLICATION_FORM_URLENCODED)
@@ -138,7 +139,7 @@ public class ProjectClient {
                 .build()
                 .target(targetUrl)
                 .request(MediaType.APPLICATION_JSON)
-                .put(Entity.json(project)).getStatus();
+                .put(Entity.form(MultivaluedMapUtil.convertMultiValuedMap(project))).getStatus();
     }
 
     /**
